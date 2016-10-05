@@ -1,5 +1,6 @@
 package com.teamtreehouse.techdegree.overboard.model;
 
+import com.teamtreehouse.techdegree.overboard.exc.AnswerAcceptanceException;
 import com.teamtreehouse.techdegree.overboard.exc.VotingException;
 import org.junit.Before;
 import org.junit.Rule;
@@ -79,5 +80,13 @@ public class UserTest {
         thrown.expectMessage("You cannot vote for yourself!");
 
         bob.downVote(answer);
+    }
+
+    @Test
+    public void userCannotAcceptTheirOwnAnswer() throws Exception {
+        thrown.expect(AnswerAcceptanceException.class);
+        thrown.expectMessage("Only alice can accept this answer as it is their question");
+
+        bob.acceptAnswer(answer);
     }
 }
