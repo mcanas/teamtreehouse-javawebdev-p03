@@ -11,7 +11,6 @@ import static org.junit.Assert.*;
 
 public class UserTest {
 
-    private Board board;
     private User alice;
     private User bob;
     private Question question;
@@ -19,7 +18,7 @@ public class UserTest {
 
     @Before
     public void setUp() throws Exception {
-        board = new Board("Java");
+        Board board = new Board("Java");
         alice = board.createUser("alice");
         bob = board.createUser("bob");
         question = alice.askQuestion("What is a String?");
@@ -41,6 +40,13 @@ public class UserTest {
         alice.upVote(answer);
 
         assertEquals("User reputation increases by 10 when their answer is upvoted", 10, bob.getReputation());
+    }
+
+    @Test
+    public void userReputationDecreasesWhenTheirAnswerIsDownVoted() throws Exception {
+        alice.downVote(answer);
+
+        assertEquals("User reputation decreased by 1 when their answer is downvoted", -1, bob.getReputation());
     }
 
     @Test
